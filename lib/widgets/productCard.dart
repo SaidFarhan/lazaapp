@@ -16,6 +16,7 @@ class product extends StatelessWidget {
         // padding: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
+          border: Border.all(width: 1, color: Color(0xffD8D8D8)),
           // color: Colors.blue,
         ),
         child: InkWell(
@@ -24,18 +25,47 @@ class product extends StatelessWidget {
           onTap: () {},
           child: Column(
             children: [
-              Image.asset(image),
+              Container(
+                margin: EdgeInsets.only(top: 8),
+                width: 160,
+                height: 203,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color(0xffD8D8D8),
+                  image: DecorationImage(
+                    image: NetworkImage(image),
+                  ),
+                ),
+              ),
               SizedBox(height: 5),
-              Text(textName),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        textName,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 5),
               Row(
                 children: [
-                  Text(
-                    textharga,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      textharga,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
                     ),
-                    maxLines: 1,
                   ),
                 ],
               ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lazaapp/models/model.dart';
+import 'package:lazaapp/repository/repository.dart';
 import 'package:lazaapp/sidebar.dart';
 import 'package:lazaapp/widgets/brandButton.dart';
 import 'package:lazaapp/widgets/circleButton.dart';
@@ -13,6 +15,19 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  List<Product> listProduct = [];
+  Repository repository = Repository();
+
+  getData() async {
+    listProduct = await repository.getData();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,37 +189,24 @@ class _homePageState extends State<homePage> {
                       ],
                     ),
                     SizedBox(height: 8),
-                    GridView(
+                    GridView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 15,
                         mainAxisSpacing: 15,
-                        mainAxisExtent: 265,
+                        mainAxisExtent: 280,
                       ),
-                      children: [
-                        product(
-                          textName: "Nike Sportswear Club Fleece",
-                          image: "images/product1.png",
-                          textharga: "Rp.244.999.,",
-                        ),
-                        product(
-                          textName: "Trail Running Jacket Nike Windrunner",
-                          image: "images/product2.png",
-                          textharga: "Rp.149.999.,",
-                        ),
-                        product(
-                          textName: "Training Top Nike Sport Clash",
-                          image: "images/product3.png",
-                          textharga: "Rp.139.999.,",
-                        ),
-                        product(
-                          textName: "Trail Running Jacket Nike Windrunner",
-                          image: "images/product4.png",
-                          textharga: "Rp.179.999.,",
-                        ),
-                      ],
+                      
+                      itemBuilder: (context, index) {
+                        return product(
+                          textName: listProduct[index].nameProduct,
+                          image: listProduct[index].ProductImage,
+                          textharga: listProduct[index].price,
+                        );
+                      },
+                      itemCount: listProduct.length,
                     ),
                   ],
                 ),
